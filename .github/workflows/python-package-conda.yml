@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python 3.10
+    - name: Set up Python 3.12
       uses: actions/setup-python@v3
       with:
         python-version: '3.12'
@@ -19,12 +19,12 @@ jobs:
         pip install -r requirements.txt
     - name: Make executable
       run: |
-        python -m pyinstaller --onefile --clean -n roman-toolbox main.pyw
+        python -m PyInstaller --onefile --clean -n main main.pyw
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.0.0
       with:
-        name: artifact
-        path: dist/roman-toolbox.exe
+        name: roman-toolbox.exe
+        path: dist/main.exe
     - name: Create release
       id: create_release
       uses: actions/create-release@v1.1.4
@@ -43,6 +43,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: dist/roman-toolbox.exe
+        asset_path: dist/main.exe
         asset_name: roman-toolbox.exe
         asset_content_type: application/zip
