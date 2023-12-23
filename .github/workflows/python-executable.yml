@@ -16,18 +16,18 @@ jobs:
         python-version: '3.12'
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt
+        pip install --no-cache-dir -r requirements.txt
     - name: Make executable
       run: |
         python -m PyInstaller --onefile --clean -n main main.pyw
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4.0.0
+      uses: actions/upload-artifact@v4
       with:
         name: roman-toolbox.exe
         path: dist/main.exe
     - name: Create release
       id: create_release
-      uses: actions/create-release@v1.1.4
+      uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -38,7 +38,7 @@ jobs:
         draft: false
         prerelease: false
     - name: Upload release asset
-      uses: actions/upload-release-asset@v1.0.2
+      uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
