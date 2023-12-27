@@ -67,9 +67,9 @@ class MenuUpdate:
     def upload(self):
         self.button["state"] = "disabled"
 
-        persist_config("ftp_server", self.ftp_server)
-        persist_config("ftp_user", self.ftp_user)
-        persist_config("ftp_password", self.ftp_password)
+        persist_config("ftp_server", self.ftp_server.get())
+        persist_config("ftp_user", self.ftp_user.get())
+        persist_config("ftp_password", self.ftp_password.get())
 
         try:
             with FTP(self.ftp_server.get()) as ftp:
